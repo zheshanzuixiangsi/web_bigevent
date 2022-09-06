@@ -23,14 +23,33 @@ $.ajaxPrefilter(function(options){
 
   if(options.url.indexOf('/my/') !== -1){
     options.headers = {
-      AUthorization : localStorage.getItem('token') || ''
+      Authorization: localStorage.getItem('token') || ''
     }
   }
 
   options.complete = function(res){
-    if(res.reponseJson.message = "身份认证失败" && res.reponseJson.status === 1){
+    // console.log(res)
+    if(res.responseJSON.message = "身份认证失败" && res.responseJSON.status === 1){
       localStorage.removeItem('token')
       location.href = '../login1.html'
     }
   }
 })
+
+// $.ajaxPrefilter(function(options){
+//   options.url = 'http://big-event-api-t.itheima.net' + options.url
+
+//   if(options.url.indexOf('/my/') !== -1){
+
+//     options.headers = {
+//       Authorization:localStorage.getItem('token')
+//     }
+//   }
+
+//   options.complete = function(res){
+//     if(res.responseJSON.message = '身份认证失败' && res.responseJSON.status === 1){
+//       localStorage.removeItem('token')
+//       location.href = '../login.html'
+//     }
+//   }
+// })
